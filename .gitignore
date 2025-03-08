@@ -72,4 +72,10 @@ compile_commands.json
 # Android
 *apk*
 android.*
->>>>>>> 3fd0c06 (feat: default template for raylib game)
+
+# raylib compiled files
+raylib_game.html
+raylib_game.js
+raylib_game.wasm
+raylib_game.data
+raylib_game.mem
