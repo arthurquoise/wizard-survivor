@@ -33,9 +33,24 @@ void DestroyPlayer(Player* player)
 
 static void UpdateMovement(Player* player)
 {
-    Vector2 target = GetMousePosition();
-    float delta = player->speed * GetFrameTime();
+    PlayerMovement dir = GetPlayerMovement();
+    Vector2 move = {0};
 
-    player->pos.x += (target.x - player->pos.x) * delta;
-    player->pos.y += (target.y - player->pos.y) * delta;
+    if (dir & MOVE_UP)    move.y -= 1;
+    if (dir & MOVE_DOWN)  move.y += 1;
+    if (dir & MOVE_LEFT)  move.x -= 1;
+    if (dir & MOVE_RIGHT) move.x += 1;
+
+    //Normalize vector
+    if (move.x != 0 || move.y != 0) 
+    {
+        float length = sqrtf(move.x * move.x + move.y * move.y);
+        move.x /= length;
+        move.y /= length;
+    }
+
+    float delta = GetFrameTime();
+
+    player->pos.x += move.x * speed * delta;
+    player->pos.y += move.y * speed * delta;
 }

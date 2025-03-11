@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "raylib.h"
 
+#include "input.h"
+
 typedef struct {
     int hp;
     int xp;
