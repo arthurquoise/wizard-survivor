@@ -3,8 +3,6 @@
 
 #include "raylib.h"
 
-static Texture2D floor;
-
 void InitWorld();
 void DrawWorld();
 

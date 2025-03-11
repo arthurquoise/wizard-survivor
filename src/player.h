@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <stdlib.h>
 #include "raylib.h"
 
 typedef struct {
@@ -10,9 +11,10 @@ typedef struct {
     Vector2 pos;
 } Player;
 
-void InitPlayer(Player* player);
+Player* InitPlayer();
 void UpdatePlayer(Player* player);
 void DrawPlayer(Player* player);
+void DestroyPlayer(Player* player);
 
 static void UpdateMovement(Player* player);
 

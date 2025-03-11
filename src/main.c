@@ -2,12 +2,7 @@
 #include <stdio.h>
 #include "raylib.h"
 
-#if defined(PLATFORM_WEB)
-    #include <emscripten/emscripten.h>
-#endif
-
 #include "player.h"
-#include "world.h"
 
 static const int screenWidth = 800;
 static const int screenHeight = 450;
@@ -30,15 +25,7 @@ int main(void)
 
     InitAudioDevice();      // Initialize audio device
 
-    player = malloc(sizeof(Player));
-    if (player == NULL)
-    {
-        printf("Failed to allocate memory for Player\n");
-        return -1;
-    }
-
-    InitPlayer(player);
-    InitWorld();
+    player = InitPlayer();
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
@@ -56,6 +43,8 @@ int main(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     // Unload current screen data before closing
+    DestroyPlayer(player);
+
     CloseAudioDevice();     // Close audio context
 
     CloseWindow();          // Close window and OpenGL context
@@ -77,7 +66,6 @@ static void UpdateDrawFrame(void)
 
         ClearBackground(RAYWHITE);
 
-        //DrawWorld();
         DrawPlayer(player);
 
         DrawFPS(10, 10);

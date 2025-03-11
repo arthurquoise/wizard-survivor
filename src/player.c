@@ -1,11 +1,19 @@
 #include "player.h"
 
-void InitPlayer(Player* player)
+Player* InitPlayer()
 {
+    Player* player = (Player*)malloc(sizeof(Player));
+    if(player == NULL)
+    {
+        TraceLog(LOG_INFO, "Unable to allocate memory for Player!");
+    }
+
     player->hp = 100;
     player->pos = (Vector2) {0.0f, 0.0f};
     player->speed = 2.0f;
     player->xp = 0;
+
+    return player;
 }
 
 void UpdatePlayer(Player* player)
@@ -16,6 +24,11 @@ void UpdatePlayer(Player* player)
 void DrawPlayer(Player* player)
 {
     DrawRectangle(player->pos.x, player->pos.y, 32, 32, GREEN);
+}
+
+void DestroyPlayer(Player* player)
+{
+    free(player);
 }
 
 static void UpdateMovement(Player* player)
